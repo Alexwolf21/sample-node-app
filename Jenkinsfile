@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        PATH = "/opt/homebrew/bin:${env.PATH}"
         IMAGE_NAME = "sample-app"
     }
 
