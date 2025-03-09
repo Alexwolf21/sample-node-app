@@ -1,7 +1,7 @@
 const express = require("express");
 const promClient = require("prom-client");
 const app = express();
-const port = 8088;
+const port = 3000;
 
 // Collect default metrics (e.g., process and OS metrics)
 promClient.collectDefaultMetrics();
