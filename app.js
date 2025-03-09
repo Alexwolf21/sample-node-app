@@ -1,7 +1,7 @@
 const express = require("express");
 const promClient = require("prom-client");
 const app = express();
-const port = 8088;
+const port = 3000;
 
 // Collect default metrics (e.g., process and OS metrics)
 promClient.collectDefaultMetrics();
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 
 // Your main route
 app.get("/", (req, res) => {
-  res.send("Hello from Node.js!");
+  res.send("Hello, World! This is the sample app with Prometheus metrics.");
 });
 
 // Expose metrics endpoint
