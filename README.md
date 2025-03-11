@@ -82,78 +82,13 @@ Application Details
 
 App.js:
 Implements a basic Express server that listens on port 3000.
-Example endpoint:
 
-app.get('/', (req, res) => {
-  res.send('Hello, World! This is the sample app.');
-});
-
-(It also exposes a /metrics endpoint for Prometheus.)
-
-Package.json:
-Lists dependencies (e.g., Express) and defines scripts:
-
-"scripts": {
-  "start": "node app.js",
-  "test": "echo \"No tests defined\""
-}
 
 Dockerfile:
-Uses node:14 as the base image, copies the application files, installs dependencies, exposes port 3000, and starts the application:
-
-FROM node:14
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
+Uses node:14 as the base image, copies the application files, installs dependencies, exposes port 3000, and starts the application
 
 Jenkinsfile:
-Defines the CI/CD pipeline stages:
-
-pipeline {
-    agent any
-    environment {
-        IMAGE_NAME = "sample-app"
-    }
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        stage('Build') {
-            steps {
-                script {
-                    dockerImage = docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}")
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'npm test'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                script {
-                    sh 'docker rm -f sample-app || echo "Container not found"'
-                    sh "docker run -d --name sample-app --network my_network -p 3000:3000 ${IMAGE_NAME}:${env.BUILD_NUMBER}"
-                }
-            }
-        }
-    }
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
-    }
-}
+Defines the CI/CD pipeline stages
 
 
 Conclusion
@@ -169,12 +104,7 @@ Docker ensures the app runs the same in every environment.
 Prometheus & Grafana (if integrated) provide real-time monitoring of application performance.
 
 
-By integrating these tools, we eliminate environment inconsistencies and streamline the deployment process.
-
-
----
-
-Feel free to customize this README.md to better fit your project's details and presentation style.
+By integrating these tools, we eliminate environment inconsistencies and streamline the deployment.
 
 
 
